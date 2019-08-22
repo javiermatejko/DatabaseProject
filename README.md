@@ -9,10 +9,10 @@ Dentro de esta aplicación se encuentran 4 botones:
 
 - Add:  crea una ventana donde te deja agregar un producto con sus datos.
 
--Delete: al seleccionar una celda de la tabla, apretando este botón lo que hará será eliminar de la base de datos ese producto completo. Luego actualizará la tabla.
+- Delete: al seleccionar una celda de la tabla, apretando este botón lo que hará será eliminar de la base de datos ese producto completo. Luego actualizará la tabla.
 
--Refresh: este botón refresca la tabla para mostrar la tabla por default.
+- Refresh: este botón refresca la tabla para mostrar la tabla por default.
 
--Apply: este botón aplica los cambios que se le hizo a un producto.
+- Apply: este botón aplica los cambios que se le hizo a un producto.
 
 Uso un DataGridView para cargar los datos de una tabla en una base de datos creada en MySQL Management Studio.
