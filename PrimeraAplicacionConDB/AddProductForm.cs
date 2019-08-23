@@ -15,23 +15,27 @@ namespace PrimeraAplicacionConDB
     public partial class AddProductForm : Form
     {
         string connectionString = @"Data Source=DESKTOP-HK8RMOI\SQLEXPRESS;Initial Catalog=UserRegistrationDB;Integrated Security=True";
-        
+
+        DateTime date;
+
         public AddProductForm()
         {
             InitializeComponent();
+            date = dtpNewValidation.Value;
+            dtpNewValidation.MinDate = date;
         }
 
         private void btnConfirmSave_Click(object sender, EventArgs e)
         {
-            if(tboxNewProdName.Text == "" || tboxNewProdPrice.Text == ""|| tboxNewProdTag.Text == ""|| tboxNewProdValidation.Text == "")
+            if(tboxNewProdName.Text == "" || tboxNewProdPrice.Text == ""|| tboxNewProdTag.Text == "" || dtpNewValidation.Value >= date)
             {
-                MessageBox.Show("Complete all boxes");
+                MessageBox.Show("Formatting error.");
             }
             else
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("INSERT into tblProducts(Name, Price, Tag) values('" + tboxNewProdName.Text+ "', '"+tboxNewProdPrice.Text+"' , '"+tboxNewProdTag.Text+"')", con);
+                    SqlCommand cmd = new SqlCommand("INSERT into tblProducts(Name, Price, Tag, Validation) values('" + tboxNewProdName.Text+ "', '"+tboxNewProdPrice.Text+"' , '"+tboxNewProdTag.Text+"' , '"+ dtpNewValidation.Value.ToString("dd-MM-yyyy") + "')", con);
                     
                     con.Open();
                     cmd.ExecuteNonQuery();
@@ -50,7 +54,10 @@ namespace PrimeraAplicacionConDB
             tboxNewProdName.Text = "";
             tboxNewProdPrice.Text = "";
             tboxNewProdTag.Text = "";
-            tboxNewProdValidation.Text = "";
-        }        
+        }
+
+        private void dtpNewValidation_ValueChanged(object sender, EventArgs e)
+        {
+        }
     }
 }

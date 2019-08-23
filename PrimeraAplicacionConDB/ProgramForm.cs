@@ -20,10 +20,14 @@ namespace PrimeraAplicacionConDB
 
         string rowName;
 
+        DateTime date;
+
         public ProgramForm()
         {
             InitializeComponent();
             RefreshTable();
+            date = dtpModifyValidation.Value;
+            dtpModifyValidation.MinDate = date;
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -94,7 +98,7 @@ namespace PrimeraAplicacionConDB
                     tboxModifyTag.Text = "";
                 }
             }
-            if (tboxModifyName.Text != "")
+            if (tboxModifyName.Text !=  "")
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -104,7 +108,24 @@ namespace PrimeraAplicacionConDB
                     tboxModifyName.Text = "";
                 }
             }
+
+            if (dtpModifyValidation.Value >= date)
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("UPDATE tblProducts SET Validation = '" + dtpModifyValidation.Value.ToString("dd-MM-yyyy") + "' WHERE Name= '" + rowName + "';", con);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    tboxModifyName.Text = "";
+                }
+            }
             RefreshTable();
+        }
+
+        private void dtpModifyValidation_ValueChanged(object sender, EventArgs e)
+        {
+            
+            
         }
     }
 }
